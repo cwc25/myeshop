@@ -1,0 +1,49 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: orderapi
+  labels:
+    app: eshop
+    component: orderapi
+spec:
+  type: NodePort
+  ports:
+    - port: 5001
+      targetPort: 5001
+      nodePort: 30124
+  selector:
+    app: eshop
+    component: orderapi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: orderapi
+  labels:
+    app: eshop
+    component: orderapi
+spec:
+  selector:
+    matchLabels:
+      app: eshop
+      component: orderapi
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: eshop
+        component: orderapi
+    spec:
+      containers:
+      - image: iaarm88/order.api
+        name: orderapi
+        env:
+        - name: sqlconnection
+          value: 'server=mysql;user=root;database=eshop;port=3306;password=password'
+        - name: rabbitservice
+          value: 'rabbitmq'
+        ports:
+        - containerPort: 5001
+          name: orderapi
+

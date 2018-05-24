@@ -1,0 +1,40 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Order.API", "Order.API\Order.API.csproj", "{66CBBD7A-4BB5-4D46-B395-5FDEDFF1487C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventBus", "EventBus\EventBus.csproj", "{19B6A945-D18B-4D23-A916-CEF404550094}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventBusRabbitMQ", "EventBusRabbitMQ\EventBusRabbitMQ.csproj", "{DE43F77A-878C-4AD7-BF28-5119DBC9EAD3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Basket.API", "Basket.API\Basket.API.csproj", "{73B03E0D-0388-4C0E-87B2-3DB040F1CCD9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "k8s", "k8s", "{0E91AFEF-A9AE-41C5-A8E4-D7BE4D395295}"
+	ProjectSection(SolutionItems) = preProject
+		mysql.yaml = mysql.yaml
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{66CBBD7A-4BB5-4D46-B395-5FDEDFF1487C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66CBBD7A-4BB5-4D46-B395-5FDEDFF1487C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66CBBD7A-4BB5-4D46-B395-5FDEDFF1487C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66CBBD7A-4BB5-4D46-B395-5FDEDFF1487C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{19B6A945-D18B-4D23-A916-CEF404550094}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19B6A945-D18B-4D23-A916-CEF404550094}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19B6A945-D18B-4D23-A916-CEF404550094}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19B6A945-D18B-4D23-A916-CEF404550094}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE43F77A-878C-4AD7-BF28-5119DBC9EAD3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE43F77A-878C-4AD7-BF28-5119DBC9EAD3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE43F77A-878C-4AD7-BF28-5119DBC9EAD3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE43F77A-878C-4AD7-BF28-5119DBC9EAD3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{73B03E0D-0388-4C0E-87B2-3DB040F1CCD9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73B03E0D-0388-4C0E-87B2-3DB040F1CCD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73B03E0D-0388-4C0E-87B2-3DB040F1CCD9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73B03E0D-0388-4C0E-87B2-3DB040F1CCD9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

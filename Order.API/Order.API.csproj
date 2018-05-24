@@ -1,0 +1,42 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
+    <Folder Include="IntegrationEvents\" />
+    <Folder Include="IntegrationEvents\Events\" />
+    <Folder Include="IntegrationEvents\EventsHandler\" />
+    <Folder Include="Repository\" />
+    <Folder Include="Model\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
+    <PackageReference Include="MongoDB.Driver" Version="2.5.0" />
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.2.2" />
+    <PackageReference Include="Dapper" Version="1.50.4" />
+    <PackageReference Include="MySql.Data" Version="8.0.11" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\EventBus\EventBus.csproj" />
+    <ProjectReference Include="..\EventBusRabbitMQ\EventBusRabbitMQ.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="IntegrationEvents\EventsHandler\IOrderIntegrationEventService.cs" />
+    <Compile Remove="Repository\DapperOrderRepository.cs" />
+    <Compile Remove="IntegrationEvents\EventsHandler\OrderStartedIntegrationEventHandler.cs" />
+    <Compile Remove="IntegrationEvents\EventsHandler\OrderStartedIntegrationEventHandler.cs" />
+    <Compile Remove="Dockerfile.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="mysql.yaml" />
+  </ItemGroup>
+</Project>

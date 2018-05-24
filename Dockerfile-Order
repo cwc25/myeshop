@@ -1,0 +1,27 @@
+# Build Stage
+FROM microsoft/aspnetcore-build AS build-env
+WORKDIR /src
+
+#   Copy only .csproj and restore
+COPY ./Order.API/ ./Order.API/
+RUN dotnet restore ./Order.API/
+
+COPY ./EventBus/ ./EventBus/
+RUN dotnet restore ./EventBus/
+
+COPY ./EventBusRabbitMQ/ ./EventBusRabbitMQ/
+RUN dotnet restore ./EventBusRabbitMQ/
+
+RUN dotnet build ./EventBus/
+RUN dotnet build ./EventBusRabbitMQ/
+RUN dotnet build ./Order.API/
+
+
+#   publish
+RUN dotnet publish ./Order.API/ -o /publish --configuration Release
+
+# Publish Stage
+FROM microsoft/aspnetcore
+WORKDIR /app
+COPY --from=build-env /publish .
+ENTRYPOINT ["dotnet", "Order.API.dll"]
