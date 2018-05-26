@@ -1,0 +1,7 @@
+1. run this first
+kubectl create secret generic mysql-pass --from-literal=password=YOUR_PASSWORD
+2. run consolidated-deploy
+3. untaint master
+kubectl taint nodes --all node-role.kubernetes.io/master-
+4. flannel - pod network communication
+kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/v0.10.0/Documentation/kube-flannel.yml

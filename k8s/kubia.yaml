@@ -1,0 +1,71 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: eshop
+    component: kubia
+  name: kubia
+spec:
+  type: NodePort
+  ports:
+  - name: port
+    port: 8090
+    targetPort: 8090
+    nodePort: 30163
+  selector:
+    app: eshop
+    component: kubia
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: kubia
+spec:
+  template:
+    metadata:
+      labels:
+        app: eshop
+        component: kubia
+    spec:
+      containers:
+      - name: kubia
+        image: iaarm88/kubia
+        ports:
+        - containerPort: 8090
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

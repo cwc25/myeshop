@@ -56,7 +56,7 @@ namespace EventBusRabbitMQ
             factory.UserName = "guest";
             factory.Password = "guest";
             factory.VirtualHost = "/";
-            factory.HostName = "rabbit";
+            factory.HostName = _rabbitService;
 
 			var connection = factory.CreateConnection();
 			var channel = connection.CreateModel();

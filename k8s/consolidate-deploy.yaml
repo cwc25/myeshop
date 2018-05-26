@@ -1,0 +1,245 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: busybox
+  namespace: default
+spec:
+  containers:
+  - name: busybox
+    image: busybox
+    command:
+      - sleep
+      - "3600"
+    imagePullPolicy: IfNotPresent
+  restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: eshop
+    component: kubia
+  name: kubia
+spec:
+  type: NodePort
+  ports:
+  - name: port
+    port: 8090
+    targetPort: 8090
+    nodePort: 30163
+  selector:
+    app: eshop
+    component: kubia
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: kubia
+spec:
+  template:
+    metadata:
+      labels:
+        app: eshop
+        component: kubia
+    spec:
+      containers:
+      - name: kubia
+        image: iaarm88/kubia
+        ports:
+        - containerPort: 8090
+---
+
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv0001
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteOnce
+  capacity:
+    storage: 1Gi
+  hostPath:
+    path: /data/pv0001/
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mysql-pv-claim
+  labels:
+    app: eshop
+    component: mysql
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 0.5Gi
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql
+  labels:
+    app: eshop
+    component: mysql
+spec:
+  type: NodePort
+  ports:
+    - port: 3306
+      targetPort: 3306
+      nodePort: 30173
+  selector:
+    app: eshop
+    component: mysql
+---
+apiVersion: apps/v1 
+kind: Deployment
+metadata:
+  name: myql
+  labels:
+    app: eshop
+    component: mysql
+spec:
+  selector:
+    matchLabels:
+      app: eshop
+      component: mysql
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: eshop
+        component: mysql
+    spec:
+      containers:
+      - image: mysql:5.6
+        name: mysql
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysql-pass
+              key: password
+        ports:
+        - containerPort: 3306
+          name: mysql
+        volumeMounts:
+        - name: mysql-persistent-storage
+          mountPath: /var/lib/mysql
+      volumes:
+      - name: mysql-persistent-storage
+        persistentVolumeClaim:
+          claimName: mysql-pv-claim
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: eshop
+    component: rabbitmq
+  name: rabbitmq
+spec:
+  type: NodePort
+  ports:
+  - name: queue
+    port: 5672
+    targetPort: 5672
+    nodePort: 30133
+  - name: mgm
+    port: 15672
+    targetPort: 15672
+    nodePort: 30153
+  selector:
+    app: eshop
+    component: rabbitmq
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: rabbitmq
+spec:
+  template:
+    metadata:
+      labels:
+        app: eshop
+        component: rabbitmq
+    spec:
+      containers:
+      - name: rabbitmq
+        image: rabbitmq:3-management
+        ports:
+        - containerPort: 5672
+        - containerPort: 15672
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

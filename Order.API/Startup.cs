@@ -50,6 +50,7 @@ namespace Order.API
             {
                 var iLifetimeScope = sp.GetRequiredService<ILifetimeScope>();
 				var rabbitService = Configuration.GetValue<string>("rabbitservice");
+                
 				return new EventBusRabbitMQ.EventBusRabbitMQ(iLifetimeScope, rabbitService);
             });
 

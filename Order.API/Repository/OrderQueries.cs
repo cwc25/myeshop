@@ -24,10 +24,11 @@ namespace Order.API.Repository
 
 		public async void InsertOrderAsync(OrderDto order)
 		{
+			Console.WriteLine("OrderQueries Insert Order");
 			//string connStr = "server=localhost;user=root;database=world;port=3306;password=******";
 			using(var conn = new MySqlConnection(_connectionString))
 			{
-				string query = "INSERT INTO eshop.Order(Total) VALUES(@Total)";
+				string query = "INSERT INTO eshop.order(total) VALUES(@Total)";
 				int rowsAffected = await conn.ExecuteAsync(query, order);
 			}
 		}

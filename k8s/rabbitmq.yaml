@@ -15,7 +15,7 @@ spec:
   - name: mgm
     port: 15672
     targetPort: 15672
-    nodePort: 30143
+    nodePort: 30153
   selector:
     app: eshop
     component: rabbitmq

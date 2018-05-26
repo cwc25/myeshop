@@ -1,5 +1,5 @@
 # Build Stage
-FROM microsoft/aspnetcore-build AS build-env
+FROM microsoft/aspnetcore-build:2.0.5-2.1.4 AS build-env
 WORKDIR /src
 
 #   Copy only .csproj and restore
@@ -21,7 +21,7 @@ RUN dotnet build ./Order.API/
 RUN dotnet publish ./Order.API/ -o /publish --configuration Release
 
 # Publish Stage
-FROM microsoft/aspnetcore
+FROM microsoft/aspnetcore:2.0.5
 WORKDIR /app
 COPY --from=build-env /publish .
 ENTRYPOINT ["dotnet", "Order.API.dll"]

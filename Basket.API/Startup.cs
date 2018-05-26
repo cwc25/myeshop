@@ -33,7 +33,9 @@ namespace Basket.API
             services.AddSingleton<IEventBus, EventBusRabbitMQ.EventBusRabbitMQ>(sp =>
             {
                 var lifeScope = sp.GetRequiredService<ILifetimeScope>();
-                return new EventBusRabbitMQ.EventBusRabbitMQ(lifeScope);
+                var rabbitService = Configuration.GetValue<string>("rabbitservice");
+                
+                return new EventBusRabbitMQ.EventBusRabbitMQ(lifeScope, rabbitService);
             });
 
 			services.AddTransient<OrderStartedIntegrationEventHandler>();
