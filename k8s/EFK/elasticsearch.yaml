@@ -1,0 +1,85 @@
+
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: elasticsearch-logging.v2.4
+  namespace: kube-system
+  labels:
+    k8s-app: elasticsearch-logging
+    version: v2.4
+    kubernetes.io/cluster-service: "true"
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        k8s-app: elasticsearch-logging
+        version: v2.4
+        kubernetes.io/cluster-service: "true"
+    spec:
+      nodeSelector:
+        #kubernetes.io/hostname: es-122
+        type: deploy
+      containers:
+      - image: elasticsearch:2.4
+        name: elasticsearch-logging
+        resources:
+          limits:
+            cpu: 100m
+            #memory: 400Mi
+          requests:
+            cpu: 100m
+            #memory: 200Mi
+        ports:
+        - containerPort: 9200
+          name: db
+          protocol: TCP
+        - containerPort: 9300
+          name: transport
+          protocol: TCP
+        env:
+        #- name: TZ
+        #  value: "Asia/Shanghai"
+        volumeMounts:
+        - name: es-persistent-storage
+          mountPath: /data
+      volumes:
+      - name: es-persistent-storage
+        hostPath:
+          path: /home/docker/elasticsearch/data
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
