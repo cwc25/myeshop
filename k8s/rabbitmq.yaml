@@ -25,6 +25,7 @@ kind: Deployment
 metadata:
   name: rabbitmq
 spec:
+  replicas: 2
   template:
     metadata:
       labels:
