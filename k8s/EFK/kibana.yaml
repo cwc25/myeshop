@@ -1,0 +1,60 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: elasticsearch-kibana
+  namespace: kube-system
+  labels:
+    k8s-app: elasticsearch-kibana
+    kubernetes.io/cluster-service: "true"
+    kubernetes.io/name: "kibana"
+spec:
+  type: NodePort
+  ports:
+  - port: 5601
+    protocol: TCP
+    targetPort: ui
+    nodePort: 32106
+  selector:
+    k8s-app: elasticsearch-kibana
+---
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: elasticsearch-kibana.4.6
+  namespace: kube-system
+  labels:
+    k8s-app: elasticsearch-kibana
+    version: v4.6
+    kubernetes.io/cluster-service: "true"
+spec:
+  replicas: 1
+  selector:
+    k8s-app: elasticsearch-kibana
+    version: v4.6
+  template:
+    metadata:
+      labels:
+        k8s-app: elasticsearch-kibana
+        version: v4.6
+        kubernetes.io/cluster-service: "true"
+    spec:
+      nodeSelector:
+        #kubernetes.io/hostname: es-122
+        type: deploy
+      containers:
+      - image: kibana:4.6
+        name: kibana
+        resources:
+          limits:
+            cpu: 100m
+            #memory: 400Mi
+          requests:
+            cpu: 100m
+            #memory: 200Mi
+        ports:
+        - containerPort: 5601
+          name: ui
+          protocol: TCP
+        env:
+          - name: ELASTICSEARCH_URL
+            value: http://192.168.18.129:32105
