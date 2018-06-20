@@ -1,0 +1,3 @@
+kubectl logs jenkins-release-57bd5c894c-dsgz7 -c copy-default-config
+helm install --name jenkins-release -f value.yaml stable/jenkins
+helm delete jenkins-release --purge

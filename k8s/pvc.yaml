@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: mysql-pv-claim
+  name: jenkins-pv-claim
   labels:
     app: eshop
-    component: mysql
+    component: jenkins
 spec:
   storageClassName: manual
   accessModes:
